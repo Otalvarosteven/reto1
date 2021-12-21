@@ -5,13 +5,13 @@ interface SearchResultsInterface extends \Magento\Framework\Api\SearchResultsInt
 {
     /**
      *
-     * @return \Omnipro\Blog\Api\Data\UserOpinionInterface[]
+     * @return \Omnipro\Blog\Api\Data\BlogInterface[]
      */
     public function getItems();
 
     /**
      *
-     * @param \Omnipro\Blog\Api\Data\UserOpinionInterface[] $items
+     * @param \Omnipro\Blog\Api\Data\BlogInterface[] $items
      * @return $this
      */
     public function setItems(array $items);

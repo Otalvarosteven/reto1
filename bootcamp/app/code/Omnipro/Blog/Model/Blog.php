@@ -3,9 +3,10 @@ namespace Omnipro\Blog\Model;
 
 use \Magento\Framework\DataObject\IdentityInterface;
 use \Magento\Framework\Model\AbstractModel;
-use Omnipro\Blog\Model\ResourceModel\Blog as BlogResorce;
+use \Omnipro\Blog\Api\Data\BlogInterface;
+use \Omnipro\Blog\Model\ResourceModel\Blog as BlogResorce;
 
-class Blog extends AbstractModel implements IdentityInterface
+class Blog extends AbstractModel implements IdentityInterface, BlogInterface
 {
     const CACHE_TAG = 'omnipro_blog_blog';
 
@@ -22,23 +23,6 @@ class Blog extends AbstractModel implements IdentityInterface
      * @var string
      */
     protected $_eventPrefix = 'blog';
-
-    /**
-     * @param \Magento\Framework\Model\Context $context
-     * @param \Magento\Framework\Registry $registry
-     * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource
-     * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection
-     * @param array $data
-     */
-    public function __construct(
-        \Magento\Framework\Model\Context $context,
-        \Magento\Framework\Registry $registry,
-        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
-        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
-        array $data = []
-    ) {
-        parent::__construct($context, $registry, $resource, $resourceCollection, $data);
-    }
 
     /**
      * Initialize resource model
@@ -58,5 +42,55 @@ class Blog extends AbstractModel implements IdentityInterface
     public function getIdentities()
     {
         return [self::CACHE_TAG . '_' . $this->getId()];
+    }
+
+    public function getPostId()
+    {
+        return $this->getData('post_id');
+    }
+
+    public function setPostId($postId)
+    {
+        $this->setData('post_id', $postId);
+    }
+
+    public function getImageUrl()
+    {
+        return $this->getData('image_url');
+    }
+
+    public function setImageUrl($imageUrl)
+    {
+        $this->setData('image_url', $imageUrl);
+    }
+
+    public function getUserEmail()
+    {
+        return $this->getData('user_email');
+    }
+
+    public function setUserEmail($userEmail)
+    {
+        $this->setData('user_email', $userEmail);
+    }
+
+    public function getTitle()
+    {
+        return $this->getData('title');
+    }
+
+    public function setTitle($title)
+    {
+        $this->setData('title', $title);
+    }
+
+    public function getOpinion()
+    {
+        return $this->getData('opinion');
+    }
+
+    public function setOpinion($opinion)
+    {
+        $this->setData('opinion', $opinion);
     }
 }

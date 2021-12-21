@@ -13,23 +13,23 @@ interface BlogRepositoryInterface
     /**
      *
      * @param int $id
-     * @return \Omnipro\Blog\Api\Data\UserOpinionInterface
+     * @return \Omnipro\Blog\Api\Data\BlogInterface
      */
     public function getById($id);
 
     /**
      *
-     * @param \Omnipro\Blog\Api\Data\UserOpinionInterface $userOpinion
-     * @return \Omnipro\Blog\Api\Data\UserOpinionInterface
+     * @param \Omnipro\Blog\Api\Data\BlogInterface $blog
+     * @return \Omnipro\Blog\Api\Data\BlogInterface
      */
-    public function save($userOpinion);
+    public function save($blog);
 
     /**
      *
-     * @param \Omnipro\Blog\Api\Data\UserOpinionInterface $userOpinion
+     * @param \Omnipro\Blog\Api\Data\BlogInterface $blog
      * @return bool
      */
-    public function delete($userOpinion);
+    public function delete($blog);
 
     /**
      *

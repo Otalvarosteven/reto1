@@ -14,9 +14,15 @@ class Index extends \Magento\Framework\App\Action\Action
     private $jsonFactory;
 
     /**
-     * @param \Omnipro\Blog\Model\BlogFactory
+     * @param \Omnipro\Blog\Api\Data\BlogInterfaceFactory
      */
     private $blogFactory;
+
+    
+    /**
+     * @param \Omnipro\Blog\Api\BlogRepositoryInterface
+     */
+    private $blogRepository;
 
     /**
      * @param \Magento\Framework\App\Action\Context $context
@@ -25,12 +31,14 @@ class Index extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
-        \Omnipro\Blog\Model\BlogFactory $blogFactory
+        \Omnipro\Blog\Api\Data\BlogInterfaceFactory $blogFactory,
+        \Omnipro\Blog\Api\BlogRepositoryInterface $blogRepository
     )
     {
         $this->_pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
         $this->blogFactory = $blogFactory;
+        $this->blogRepository = $blogRepository;
         return parent::__construct($context);
     }
     /**
@@ -52,9 +60,9 @@ class Index extends \Magento\Framework\App\Action\Action
         $blog->setTitle("Televisor");
         $blog->setOpinion('Excelente');
 
-        //$this->BlogRepository->save($blog);
+        $this->blogRepository->save($blog);
 
-        $blog->save();
+        #$blog->save();
 
         $json->setData([
             'success' => true,
