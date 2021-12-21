@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="omnipro_useropinion" resource="default" engine="innodb" comment="User Opinion Table">
+        <column name="opinion_id" xsi:type="int" padding="10" unsigned="true" nullable="false" identity="true" comment="User Opinion Id"/>
+        <column name="sku" xsi:type="varchar"  nullable="false" length="255" comment="User Opinion SKU"/>
+        <column name="user_email" xsi:type="varchar"  nullable="false" length="255" comment="User Opinion Email"/>
+        <column name="puntuacion" xsi:type="float"  nullable="false" comment="User Opinion Puntuacion"/>
+        <column name="opinion" xsi:type="varchar"  nullable="false" length="255" comment="User Opinion"/>
+        <column name="fecha" xsi:type="timestamp"  nullable="false" default="CURRENT_TIMESTAMP" comment="User Opinion Fecha"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="opinion_id" />
+
+        </constraint>
+    
+    </table>
+</schema>

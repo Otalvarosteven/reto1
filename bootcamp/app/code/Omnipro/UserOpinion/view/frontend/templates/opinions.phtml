@@ -1,0 +1,16 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+$viewModel = $block->getViewModel();
+$items = $viewModel->getOpinions();
+?>
+
+<?php foreach ($items as $opinion): ?>
+
+    <div><?= $opinion['sku'] ?> </div>
+    <div><?= $opinion['puntuacion'] ?> </div>
+
+<?php endforeach; ?>
+
+
+    <input type="number">
+    <button class="btn-primary">hola soy un boton</button>

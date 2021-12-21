@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="omnipro_blog" resource="default" engine="innodb" comment="User Blog Table">
+
+        <column name="post_id" xsi:type="int" padding="10" unsigned="true" nullable="false" identity="true" comment="User Blog Id"/>
+        <column name="user_email" xsi:type="varchar"  nullable="false" length="255" comment="User Blog Email"/>
+        <column name="title" xsi:type="varchar"  nullable="false" length="255" comment="User Blog Title"/>
+        <column name="opinion" xsi:type="varchar"  nullable="false" length="255" comment="User Blog Opinion"/>
+        <column name="image_url" xsi:type="varchar"  nullable="false" length="255" comment="User Blog image"/>
+        <column name="fecha" xsi:type="timestamp"  nullable="false" default="CURRENT_TIMESTAMP" comment="User Blog Fecha"/>
+        
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="post_id" />
+
+        </constraint>
+    
+    </table>
+</schema>

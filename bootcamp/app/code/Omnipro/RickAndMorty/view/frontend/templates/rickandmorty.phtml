@@ -1,0 +1,26 @@
+<?php
+/** @var \Omnipro\RickAndMorty\Block\RickAndMorty $block */
+/** @var \Omnipro\RickAndMorty\ViewModel\RickAndMortyViewModel $viewModel */
+
+//$block->getViewModel()
+$viewModel = $block->getData('view_model');
+$characters = $viewModel->getCharacters();
+
+/**<?= print_r($characters, true) ?> */
+?>
+
+<?= __("Rick and Morty Characters") ?>
+<br>
+<?= $viewModel -> sayHello() ?>
+<br>
+
+<?php foreach ($characters['results'] as $character): ?>
+<div class="character">
+    <div class="name"><?= $character['name'] ?></div>
+    <div class="status"><?= $character['status'] ?></div>
+    <div class="species"><?= $character['species'] ?></div>
+    <div class="image"> <img src="<?= $character['image'] ?>" alt="<?= $character['name'] ?>"> </div>
+
+</div>
+<?php endforeach; ?>
+
