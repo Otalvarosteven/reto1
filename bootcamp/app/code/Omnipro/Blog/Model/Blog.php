@@ -93,4 +93,9 @@ class Blog extends AbstractModel implements IdentityInterface, BlogInterface
     {
         $this->setData('opinion', $opinion);
     }
+
+    public function getFecha()
+    {
+        return $this->getData('fecha');
+    }
 }

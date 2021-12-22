@@ -1,74 +1,84 @@
 <?php
 /** @var \Omnipro\Blog\Block\Blog $block */
- /** @var \Omnipro\Blog\ViewModel\BlogViewModel $viewModel
+
+use PayPal\Braintree\Block\Adminhtml\Virtual\Script;
+
+/** @var \Omnipro\Blog\ViewModel\BlogViewModel $viewModel
 */
 
 $viewModel = $block->getData('view_model');
 $items = $viewModel->getOpinions();
+
+
 ?>
+<script>
+    $items.reverse()
 
+</script>
 
-<body>
-    <header class="header">
-        <img class="header__img" src="blog.jpg" alt="logo">
-        <h3>header</h3>
-    </header>
- 
-    <main class="area">
-        <section class="main">
-            <h1 class="main__title">Blog espectacular...</h1>
-            <p class="main__pa">¿Que quieres escrbir hoy?</p>
-        </section>
- 
-        <section class="newpost">
+<div class="container mt-3 justify-content-center">
+    <div class="row mt-3 justify-content-center">
+        <div class="col">
+        <h2 class="text-center"> My spectacular blog</h2>
+        </div>
+    </div>
 
-        <form method="POST" action="<?= $block->getUrl('blog/createblog/createblog'); ?>">
-            <h2 class="newpost__title">Nuevo post</h2>
-              
- 
-        <fieldset name="fieldset">
-            <div class="newpost__title">
-                <label class="newpost__label" for="title"><span><?= $block->
-                     escapeHtmlAttr(__('Titulo')) ?></span></label>
-                    <input class="input__title" type="text" placeholder="titulo del post"
-                            data-validate="{required:true, 'validate-alphanum-with-spaces':true}">
-            </div>
-
-            <div class="newpost__content">
-                <label class="newpost__label" for="content"><span><?= $block->
-                    escapeHtmlAttr(__('Contenido')) ?></span></label>
-                    <input class="input__content" type="text" placeholder="<?= $block->
-                    escapeHtmlAttr(__('escriba el texto importante')) ?>" data-validate="{required:true}">
-            </div>
-
-            <div class="newpost__email">
-                <label class="newpost__label" for="email"><span><?= $block->
-                    escapeHtmlAttr(__('email')) ?></span></label>
-                <input class="input__email" type="email" placeholder="<?= $block->
-                escapeHtmlAttr(__('example@omni.pro')) ?>" data-validate="{required:true, 'validate-email':true}">
-            </div>
-
-            <div class="newpost__image">
-                <label class="label" for="profile_pic"><?= $block->
-                    escapeHtmlAttr(__('Selecione su imagen')) ?></label>
-                <input type="file" id="profile_pic" name="profile_pic"
-                    accept=".jpg, .jpeg, .png" data-validate="{required:true}">
-            </div>
-        </fieldset>
-        <div class="actions-toolbar">
-            <div class="primary">
-                <button type="submit" class="action submit primary" title="Save"><span><?= $block->
-                    escapeHtmlAttr(__('Save')) ?></span></button>
+    <div class="row mt-3 justify-content-center">
+        <div class="col mt-3">
+        <p class="text-center">A totally false statement</p>
+        </div>
+    </div>
+</div>
+    <div class="container mt-3 bg-light justify-content-center rounded">
+        <div class="row mt-3">
+            <div class="col-6">
+                <h5>New blog post</h5>
             </div>
         </div>
-    </form>
-        </section>
-    </main>
-</body>
+        <form method="POST" action="<?= $block->getUrl('blog/createblog/createblog'); ?>">
+        <div class="row mt-3">
+            <div class="col-7 col-sm-7 col-xs-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7">
+                <input class="form-control" type="text" name="title" placeholder="My post title"/>
+            </div>
+            <div class="col-5 col-sm-5 col-xs-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5">
+                <button class="btn btn-primary" type="submit">Save post</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-7 col-sm-7 col-xs-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7">
+                <textarea class="form-control" type="text" name="content" placeholder="Here all my important post text" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-4 col-sm-4 col-xs-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+            <input class="form-control" type="email" name="email" placeholder="Email Address"/>
+        </div>
+        </div>
+        <div class="row mt-3 mb-3">
+            <div class="col-7 col-sm-7 col-xs-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7">
+                <input class="form-control" type="file" name="image"/>
+            </div>
+        </div>
+    </div>
 
 <?php foreach ($items as $opinion): ?>
-
-<div><?= $opinion['user_email'] ?> </div>
-<div><?= $opinion['opinion'] ?> </div>
-
+<div class="container mt-3 rounded">
+    <div class="row mt-5 bg-light">
+        <div class=" col col-sm-7 col-xs-7 col-md-7 col-lg-7 col-xl-5 col-xxl-5 rounded mt-3" >
+            <p class="justify"> <?= $opinion['title'] ?> </p>
+        </div>
+        <div class=" col col-sm-4 col-xs-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3 rounded mt-3">
+            <p>Fecha</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="bg-light col col-sm-2 col-xs-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 rounded mb-3">
+            <img src="https://via.placeholder.com/100x100.png" class="img-fluid rounded" alt="image">  
+        </div>
+        <div class="bg-light col col-sm-9 col-xs-9 col-md-9 col-lg-9 col-xl-6 col-xxl-6 rounded  mb-3">
+            <p class="text-justify justify">  <?= $opinion['opinion'] ?> </p>
+        </div>
+    </div>
+</div>
 <?php endforeach; ?>
+
