@@ -3,7 +3,7 @@ namespace Omnipro\Blog\Model\ResourceModel\Blog;
 
 use \Omnipro\Blog\Model\ResourceModel\Blog as BlogResource;
 use \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-use Omnipro\Blog\Model\Blog;
+use \Omnipro\Blog\Model\Blog;
 
 class Collection extends AbstractCollection
 {

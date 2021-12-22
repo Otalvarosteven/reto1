@@ -1,7 +1,10 @@
 <?php
-/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Omnipro\Blog\Block\Blog $block */
+ /** @var \Omnipro\Blog\ViewModel\BlogViewModel $viewModel
+*/
 
-
+$viewModel = $block->getData('view_model');
+$items = $viewModel->getOpinions();
 ?>
 
 <div class="row">
@@ -56,3 +59,9 @@
     </div>
 </div>
 
+<?php foreach ($items as $opinion): ?>
+
+<div><?= $opinion['user_email'] ?> </div>
+<div><?= $opinion['opinion'] ?> </div>
+
+<?php endforeach; ?>

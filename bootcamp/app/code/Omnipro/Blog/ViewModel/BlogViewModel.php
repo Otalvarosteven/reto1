@@ -26,7 +26,7 @@ class BlogViewModel implements ArgumentInterface
 
          $blogCollection = $this->blogCollectionFactory->create();
 
-         $blogCollection->addFieldToFilter('*');
+         $blogCollection->addFieldToSelect('*');
          return $blogCollection->getItems();
     }
 }

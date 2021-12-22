@@ -75,6 +75,6 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
         $this->blogRepository->save($blog);
         #$blog->save();
 
-        return $this->_pageFactory->create();
+        return $this->_redirect('blog');
     }
 }
