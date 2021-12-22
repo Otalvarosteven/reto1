@@ -7,57 +7,64 @@ $viewModel = $block->getData('view_model');
 $items = $viewModel->getOpinions();
 ?>
 
-<div class="row">
-    <div class="col-md-8">
-        <form method="POST"
-              action="<?= $block->getUrl('blog/createblog/createblog'); ?>"
-              >
-            <fieldset class="fieldset">
-                <legend class="legend"><span><?= $block->escapeHtmlAttr(__('Fill Detail')) ?></span></legend>
-                <fieldset class="fieldset row">
-                    <div class="fields col-md-6">
-                        <div class="field name required">
-                            <label class="label" for="title"><span><?= $block->
-                                escapeHtmlAttr(__('Titulo')) ?></span></label>
-                            <div class="control">
-                                <input name="title" id="title" title="title" value="" class="input-text" type="text"
-                                       data-validate="{required:true, 'validate-alphanum-with-spaces':true}">
-                            </div>
-                        </div>
-                        <div class="field name required">
-                            <label class="label" for="content"><span><?= $block->
-                                escapeHtmlAttr(__('Contenido')) ?></span></label>
-                            <div class="control">
-                                <input name="content" id="content" title="content" value="" class="input-text" type="text"
-                                       data-validate="{required:true">
-                            </div>
-                        </div>
-                        <div class="field name required">
-                            <label class="label" for="title"><span><?= $block->
-                                escapeHtmlAttr(__('Email')) ?></span></label>
-                            <div class="control">
-                                <input name="email" id="email" title="Email" value="" class="input-text" type="email"
-                                       data-validate="{required:true, 'validate-email':true}">
-                            </div>
-                        </div>
-                        
-                        <div class="field name required">
-                            <label class="label" for="profile_pic">Selecione la imagen </label>
-                            <input type="file" id="profile_pic" name="profile_pic" value=""
-                                accept=".jpg, .jpeg, .png" data-validate="{required:true}">
-                        </div>
-                    </div>
-                </fieldset>
-            </fieldset>
-            <div class="actions-toolbar">
-                <div class="primary">
-                    <button type="submit" class="action submit primary" title="Save"><span><?= $block->
-                        escapeHtmlAttr(__('Save')) ?></span></button>
-                </div>
+
+<body>
+    <header class="header">
+        <img class="header__img" src="blog.jpg" alt="logo">
+        <h3>header</h3>
+    </header>
+ 
+    <main class="area">
+        <section class="main">
+            <h1 class="main__title">Blog espectacular...</h1>
+            <p class="main__pa">¿Que quieres escrbir hoy?</p>
+        </section>
+ 
+        <section class="newpost">
+
+        <form method="POST" action="<?= $block->getUrl('blog/createblog/createblog'); ?>">
+            <h2 class="newpost__title">Nuevo post</h2>
+              
+ 
+        <fieldset name="fieldset">
+            <div class="newpost__title">
+                <label class="newpost__label" for="title"><span><?= $block->
+                     escapeHtmlAttr(__('Titulo')) ?></span></label>
+                    <input class="input__title" type="text" placeholder="titulo del post"
+                            data-validate="{required:true, 'validate-alphanum-with-spaces':true}">
             </div>
-        </form>
-    </div>
-</div>
+
+            <div class="newpost__content">
+                <label class="newpost__label" for="content"><span><?= $block->
+                    escapeHtmlAttr(__('Contenido')) ?></span></label>
+                    <input class="input__content" type="text" placeholder="<?= $block->
+                    escapeHtmlAttr(__('escriba el texto importante')) ?>" data-validate="{required:true}">
+            </div>
+
+            <div class="newpost__email">
+                <label class="newpost__label" for="email"><span><?= $block->
+                    escapeHtmlAttr(__('email')) ?></span></label>
+                <input class="input__email" type="email" placeholder="<?= $block->
+                escapeHtmlAttr(__('example@omni.pro')) ?>" data-validate="{required:true, 'validate-email':true}">
+            </div>
+
+            <div class="newpost__image">
+                <label class="label" for="profile_pic"><?= $block->
+                    escapeHtmlAttr(__('Selecione su imagen')) ?></label>
+                <input type="file" id="profile_pic" name="profile_pic"
+                    accept=".jpg, .jpeg, .png" data-validate="{required:true}">
+            </div>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action submit primary" title="Save"><span><?= $block->
+                    escapeHtmlAttr(__('Save')) ?></span></button>
+            </div>
+        </div>
+    </form>
+        </section>
+    </main>
+</body>
 
 <?php foreach ($items as $opinion): ?>
 
