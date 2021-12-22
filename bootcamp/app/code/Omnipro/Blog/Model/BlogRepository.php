@@ -41,7 +41,7 @@ class BlogRepository implements \Omnipro\Blog\Api\BlogRepositoryInterface
         \Omnipro\Blog\Api\Data\SearchResultsInterfaceFactory $searchResultsInterfaceFactory,
         \Omnipro\Blog\Model\BlogFactory $blogFactory
     ) {
-        $this->blog = $blogResource;
+        $this->blogResource = $blogResource;
         $this->blogCollectionFactory = $blogCollectionFactory;
         $this->collectionProcessor = $collectionProcessor;
         $this->searchResultsInterfaceFactory = $searchResultsInterfaceFactory;
