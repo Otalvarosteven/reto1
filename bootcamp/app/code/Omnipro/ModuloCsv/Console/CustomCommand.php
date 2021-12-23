@@ -1,17 +1,32 @@
 <?php
-namespace Omnipro\ModuloCsv\Model;
-use Magento\Framework\App\Bootstrap;
+namespace Omnipro\ModuloCsv\Console;
 
-class Cron
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Magento\Framework\App\Bootstrap;
+class CustomCommand extends Command
 {
-        public function __construct()
-        // \Psr\Log\LoggerInterface $logger
+    /**
+     * @inheritDoc
+     */
+    protected function configure()
     {
-        // $this->_logger = $logger;
+        $this->setName('cron:comando');
+        $this->setDescription('This is my command.');
+
+        parent::configure();
     }
 
-    public function croncsv()
-    {
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return null|int
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {   
         $bootstrap = Bootstrap::create(BP, $_SERVER);
         $objectManager = $bootstrap->getObjectManager();
         $state = $objectManager->get('Magento\Framework\App\State');
@@ -20,7 +35,7 @@ class Cron
         $file = fopen($dir, 'r'); // set path to the CSV file
         $cont = 0;
         if ($file !== false) {
-            // $this->_logger->info("reading file");
+            $output->writeln("reading file");
             
             
             // used for updating product stock - and it's important that it's inside the while loop
@@ -41,12 +56,12 @@ class Cron
                 $data = array();
                 $data = array_combine($header, $row);
 
-                // $this->_logger->info($data['sku']);
-                // $this->_logger->info($data['price']);
+                $output->writeln($data['sku']);
+                // $output->writeln($data['price']);
 
                 $sku = $data['sku'];
                 if ($data_count < $required_data_fields) {
-                    // $this->_logger->info("Skipping product sku " . $sku . ", not all required fields are present to create the product.");
+                    $output->writeln("Skipping product sku " . $sku . ", not all required fields are present to create the product.");
                     continue;
                 }
         
@@ -59,23 +74,23 @@ class Cron
                 $urlkey = $data['urlkey'];
 
                 if($price <= $specialprice || $sku == null || $price == null || $qty == null || $qty == 0){
-                    // $this->_logger->info('Se Inserto una cantidad de ');
-                    // $this->_logger->info($cont);
-                    // $this->_logger->info(' Productos');
-                    // return $this->_logger->info('No se pudo insertar el producto');
+                    $output->write('Se Inserto una cantidad de ');
+                    $output->write($cont);
+                    $output->writeln(' Productos');
+                    return $output->writeln('No se pudo insertar el producto');
                 }else if ($specialprice != null && $startdate == null){
-                    // $this->_logger->info('Se Inserto una cantidad de ');
-                    // $this->_logger->info($cont);
-                    // $this->_logger->info(' Productos');
-                    // return $this->_logger->info('No se pudo insertar el producto');
+                    $output->write('Se Inserto una cantidad de ');
+                    $output->write($cont);
+                    $output->writeln(' Productos');
+                    return $output->writeln('No se pudo insertar el producto');
                 }else if ($urlkey == null){
                     $urlkey = $name . $sku;
-                    // $this->_logger->info($urlkey);
+                    $output->writeln($urlkey);
 
                 }
                 
                 
-                // $this->_logger->info($cont);
+                $output->writeln($cont);
 
                 try {
                     $product->setTypeId('simple') // type of product you're importing
@@ -95,11 +110,11 @@ class Cron
                         ->setStoreId(0) // Default store ID
                         ->setVisibility(4) // 4 = Catalog & Search
                         ->save();
-                        // $this->_logger->info('entro');                        
+                        $output->writeln('entro');                        
                         $cont = $cont+1;
 
                 } catch (\Exception $e) {
-                    // $this->_logger->info('Error importing product sku: '.$sku.'. '.$e->getMessage());
+                    $output->writeln('Error importing product sku: '.$sku.'. '.$e->getMessage());
                     continue;
                 }                
                 try {
@@ -113,7 +128,7 @@ class Cron
                         $stockRegistry->updateStockItemBySku($sku, $stockItem);
                     }
                 } catch (\Exception $e) {
-                    // $this->_logger->info('Error importing stock for product sku: '.$sku.'. '.$e->getMessage());
+                    $output->writeln('Error importing stock for product sku: '.$sku.'. '.$e->getMessage());
                     continue;
                 }
                 unset($product);
@@ -121,10 +136,11 @@ class Cron
             }
             
             fclose($file);
-            // $this->_logger->info('Se Inserto una cantidad de ');
-            // $this->_logger->info($cont);
-            // $this->_logger->info(' Productos');
+            $output->write('Se Inserto una cantidad de ');
+            $output->write($cont);
+            $output->writeln(' Productos');
             
         }       
     }
+    
 }

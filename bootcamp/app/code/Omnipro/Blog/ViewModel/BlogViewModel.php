@@ -15,7 +15,6 @@ class BlogViewModel implements ArgumentInterface
     )
     {
         $this->blogCollectionFactory = $blogCollectionFactory;
-        
     }
 
     public function getOpinions()

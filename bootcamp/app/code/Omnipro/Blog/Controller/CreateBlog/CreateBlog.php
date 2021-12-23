@@ -1,14 +1,12 @@
 <?php
 namespace Omnipro\Blog\Controller\CreateBlog;
 
+use Magento\Framework\App\Filesystem\DirectoryList;
+
 class CreateBlog extends \Magento\Framework\App\Action\Action
 {
     protected $request;
 
-    /**
-     * @var \Magento\Framework\View\Result\PageFactory
-     */
-    protected $_pageFactory;
 
     /**
      * @param \Magento\Framework\Controller\Result\JsonFactory
@@ -46,11 +44,25 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
     private $userCollectionFactory;
 
     /**
+     * @param \Magento\MediaStorage\Model\File\UploaderFactory
+     */
+    private $uploaderFactory;
+
+    /**
+     * @param \Magento\Framework\Image\AdapterFactory
+     */
+    private $adapterFactory;
+
+    /**
+     * @param \Magento\Framework\Filesystem
+     */
+    private $filesystem;
+
+    /**
      * @param \Magento\Framework\App\Action\Context $context
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $pageFactory,
         \Magento\Framework\Controller\Result\JsonFactory $jsonFactory,
         \Omnipro\Blog\Model\BlogFactory $blogFactory,
         \Omnipro\Blog\Api\BlogRepositoryInterface $blogRepository,
@@ -59,10 +71,12 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
         \Magento\Authorization\Model\UserContextInterface $userContext,
         \Magento\Backend\Block\Template\Context $ContextBackend,
         \Magento\User\Model\ResourceModel\User\CollectionFactory $userCollectionFactory,
+        \Magento\MediaStorage\Model\File\UploaderFactory $uploaderFactory,
+        \Magento\Framework\Image\AdapterFactory $adapterFactory,
+        \Magento\Framework\Filesystem $filesystem,
         array $data = []
     )
     {
-        $this->_pageFactory = $pageFactory;
         $this->jsonFactory = $jsonFactory;
         $this->blogFactory = $blogFactory;
         $this->blogRepository = $blogRepository;
@@ -71,6 +85,9 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
         $this->userContext = $userContext;
         $this->ContextBackend = $ContextBackend;
         $this->userCollectionFactory = $userCollectionFactory;
+        $this->uploaderFactory = $uploaderFactory;
+        $this->adapterFactory = $adapterFactory;
+        $this->filesystem = $filesystem;
         return parent::__construct($context);
     }
     /**
@@ -111,7 +128,20 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
         $opinion = $this->request->getParam('content');
         $useremail = $this->request->getParam('email');
         $image = $this->request->getParam('image');
-        $key = $this->getFormKey();
+
+        // $uploaderFactory = $this->uploaderFactory->create(['fileId' => $image]);
+        // $uploaderFactory->setAllowedExtensions(['jpg', 'jpg', 'png']);
+        // $imageAdapter = $this->adapterFactory->create();
+        // /* start of validated image */
+        // $uploaderFactory->addValidateCallback('custom_image_upload', $imageAdapter, 'validateUploadFile');
+        // $uploaderFactory->setAllowRenameFiles(true);
+        // $uploaderFactory->setFilesDispersion(true);
+        // $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
+        // $destinationPath = $mediaDirectory->getAbsolutePath('custom_image');
+        // $result = $uploaderFactory->save($destinationPath);
+        // $imagepath = $result['file'];
+
+        
 
         $json = $this->jsonFactory->create();
         $blog = $this->blogFactory->create();
@@ -124,7 +154,7 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
             'title' => $title,
             'opinion' => $opinion ,
             'user_email' => $useremail,
-            'image_url' => '\d\f\dfj.jpg',
+            'image_url' => 'https://via.placeholder.com/100x100.png',
         ]);
 
         if ($this->getUserData($useremail)) {
