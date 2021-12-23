@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Omnipro_ModuloCsv::cron" title="Cron" module="Omnipro_ModuloCsv" sortOrder="10" resource="Omnipro_ModuloCsv::menu_id"/>
+        <add id="Omnipro_ModuloCsv::csv" title="Posts" module="Omnipro_ModuloCsv" sortOrder="10" parent="Omnipro_ModuloCsv::cron" action="modulocsv/index/index" resource="Omnipro_ModuloCsv::modulocsv"/>
+    </menu>
+</config>

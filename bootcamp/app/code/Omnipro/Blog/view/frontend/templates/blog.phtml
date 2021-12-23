@@ -8,8 +8,7 @@ use PayPal\Braintree\Block\Adminhtml\Virtual\Script;
 
 $viewModel = $block->getData('view_model');
 $items = $viewModel->getOpinions();
-
-
+$items = array_reverse($items);
 ?>
 <script>
     $items.reverse()
@@ -38,7 +37,7 @@ $items = $viewModel->getOpinions();
         <form method="POST" action="<?= $block->getUrl('blog/createblog/createblog'); ?>">
         <div class="row mt-3">
             <div class="col-7 col-sm-7 col-xs-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7">
-                <input class="form-control" type="text" name="title" placeholder="My post title"/>
+                <input class="form-control" type="text" name="title" placeholder="My post title" data-validate="{required:true, 'validate-email':true}"/>
             </div>
             <div class="col-5 col-sm-5 col-xs-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5">
                 <button class="btn btn-primary" type="submit">Save post</button>
@@ -46,28 +45,29 @@ $items = $viewModel->getOpinions();
         </div>
         <div class="row mt-3">
             <div class="col-7 col-sm-7 col-xs-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7">
-                <textarea class="form-control" type="text" name="content" placeholder="Here all my important post text" rows="3"></textarea>
+                <textarea class="form-control" type="text" name="content" placeholder="Here all my important post text" rows="3" data-validate="{required:true, 'validate-email':true}"></textarea>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-4 col-sm-4 col-xs-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-            <input class="form-control" type="email" name="email" placeholder="Email Address"/>
+            <input class="form-control" type="email" name="email" placeholder="Email Address" data-validate="{required:true, 'validate-email':true}"/>
         </div>
         </div>
         <div class="row mt-3 mb-3">
             <div class="col-7 col-sm-7 col-xs-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7">
                 <input class="form-control" type="file" name="image"/>
+                <input type="hidden" name="form_key" value="<?php echo $block->getFormKey() ?>" />
             </div>
         </div>
     </div>
 
 <?php foreach ($items as $opinion): ?>
 <div class="container mt-3 rounded">
-    <div class="row mt-5 bg-light">
-        <div class=" col col-sm-7 col-xs-7 col-md-7 col-lg-7 col-xl-5 col-xxl-5 rounded mt-3" >
+    <div class="row mt-5 ">
+        <div class="bg-light col col-sm-7 col-xs-7 col-md-7 col-lg-7 col-xl-5 col-xxl-5 rounded mt-3" >
             <p class="justify"> <?= $opinion['title'] ?> </p>
         </div>
-        <div class=" col col-sm-4 col-xs-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3 rounded mt-3">
+        <div class="bg-light col col-sm-4 col-xs-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3 rounded mt-3">
             <p>Fecha</p>
         </div>
     </div>

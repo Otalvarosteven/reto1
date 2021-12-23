@@ -27,11 +27,17 @@ body {
 }
 
 .rounded {
+    
     border-radius:.80rem!important;
+
   }
 
 .justify {
     margin: 0;
     text-indent: 0;
     text-align: justify;
+  }
+
+  .container-min-widths {
+    width: 640px;
   }
