@@ -6,4 +6,18 @@
                 type="Omnipro\Blog\Model\BlogRepository" />
     <preference for="Omnipro\Blog\Api\Data\SearchResultsInterface"
                 type="Magento\Framework\Api\SearchResults" />
+ 
+                <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+                    <arguments>
+                        <argument name="collections" xsi:type="array">
+                            <item name="omnipro_blog_blog_listing_data_source" xsi:type="string">Omnipro\Blog\Model\ResourceModel\Blog\Grid\Collection</item>
+                        </argument>
+                    </arguments>
+                </type>
+                <virtualType name="Omnipro\Blog\Model\ResourceModel\Blog\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+                    <arguments>
+                        <argument name="mainTable" xsi:type="string">omnipro_blog_blog</argument>
+                        <argument name="resourceModel" xsi:type="string">Omnipro\Blog\Model\ResourceModel\Blog</argument>
+                    </arguments>
+                </virtualType>
 </config>

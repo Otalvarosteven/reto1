@@ -31,6 +31,21 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
     private $formKey;
 
     /**
+     * @param \Magento\Authorization\Model\UserContextInterface
+     */
+    protected $userContext;
+
+    /**
+     * @param \Magento\Backend\Block\Template\Context
+     */
+    private $ContextBackend;
+
+    /**
+     * @param \Magento\User\Model\ResourceModel\User\CollectionFactory
+     */
+    private $userCollectionFactory;
+
+    /**
      * @param \Magento\Framework\App\Action\Context $context
      */
     public function __construct(
@@ -40,7 +55,11 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
         \Omnipro\Blog\Model\BlogFactory $blogFactory,
         \Omnipro\Blog\Api\BlogRepositoryInterface $blogRepository,
         \Magento\Framework\App\RequestInterface $request,
-        \Magento\Framework\Data\Form\FormKey $formKey
+        \Magento\Framework\Data\Form\FormKey $formKey,
+        \Magento\Authorization\Model\UserContextInterface $userContext,
+        \Magento\Backend\Block\Template\Context $ContextBackend,
+        \Magento\User\Model\ResourceModel\User\CollectionFactory $userCollectionFactory,
+        array $data = []
     )
     {
         $this->_pageFactory = $pageFactory;
@@ -49,6 +68,9 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
         $this->blogRepository = $blogRepository;
         $this->request = $request;
         $this->formKey = $formKey;
+        $this->userContext = $userContext;
+        $this->ContextBackend = $ContextBackend;
+        $this->userCollectionFactory = $userCollectionFactory;
         return parent::__construct($context);
     }
     /**
@@ -56,8 +78,32 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
      *
      * @return \Magento\Framework\Controller\ResultInterface
      */
-    public function getFormKey(){
+
+     /* Key que proviene del formulario del front */
+    public function getFormKey()
+    {
         return $this->formKey->getFormKey();
+    }
+
+    /* Obtener los usuarios para verificar si es admin */
+    public function getUserData($useremail)
+    {
+        $collection = $this->userCollectionFactory->create();
+        $userId =$this->userContext->getUserId();
+        $collection->addFieldToSelect('*');
+        $userData = $collection->getData();
+        $emailsAdmins = [];
+
+        foreach ($userData as $role) {
+            if ($role['role_name'] == 'Administrators') {
+                $emailsAdmins[] = $role['email'];
+            }
+        }
+        foreach($emailsAdmins as $emails) {
+            if ($emails == $useremail) {
+                return true;
+            }
+        }
     }
     public function execute()
     {
@@ -81,12 +127,12 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
             'image_url' => '\d\f\dfj.jpg',
         ]);
 
-       
-        if ($this->getFormKey() == '1xEr7uTIJaNDtSHt') {
+        if ($this->getUserData($useremail)) {
+         if ($this->getFormKey() == '1xEr7uTIJaNDtSHt') {
                 $this->blogRepository->save($blog);
             }
         #$blog->save();
-
+        }
         return $this->_redirect('blog');
     }
 }

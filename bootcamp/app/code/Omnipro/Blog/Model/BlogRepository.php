@@ -65,8 +65,8 @@ class BlogRepository implements \Omnipro\Blog\Api\BlogRepositoryInterface
     {
         $blog = $this->blogFactory->create();
         $this->blogResource->load($blog, $id);
-        if (!$blog->getOpinionId()) {
-            throw new NoSuchEntityException(__("The blog opinion doesn't exists"));
+        if (!$blog->getOpinion() && !$blog->getId()) {
+            throw new NoSuchEntityException(__("The blog post doesn't exists"));
         }
 
         return $blog;
