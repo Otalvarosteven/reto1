@@ -113,12 +113,9 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
 
         foreach ($userData as $role) {
             if ($role['role_name'] == 'Administrators') {
-                $emailsAdmins[] = $role['email'];
-            }
-        }
-        foreach ($emailsAdmins as $emails) {
-            if ($emails == $useremail) {
-                return true;
+                if ($role['email'] == $useremail){
+                    return true;
+                }
             }
         }
     }
@@ -129,30 +126,13 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
         $useremail = $this->request->getParam('email');
         $image = $this->request->getParam('image');
 
-        //if(isset($_FILES['image']['name']) && $_FILES['image']['name'] != ''){
-
-        // $uploaderFactory = $this->uploaderFactory->create(['fileId' => $image]);
-        // $uploaderFactory->setAllowedExtensions(['jpg', 'jpg', 'png']);
-        // $imageAdapter = $this->adapterFactory->create();
-        // /* start of validated image */
-        // $uploaderFactory->addValidateCallback('custom_image_upload', $imageAdapter, 'validateUploadFile');
-        // $uploaderFactory->setAllowRenameFiles(true);
-        // $uploaderFactory->setFilesDispersion(true);
-        // $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
-        // $destinationPath = $mediaDirectory->getAbsolutePath('omnipro/blog');
-        // $result = $uploaderFactory->save($destinationPath);
-        // $imagepath = 'omnipro/blog'.$result['file];
-        // $image = $imagePath
-        //}
-
-        $json = $this->jsonFactory->create();
         $blog = $this->blogFactory->create();
 
         $blog->setData([
             'title' => $title,
             'opinion' => $opinion ,
             'user_email' => $useremail,
-            'image_url' => 'https://via.placeholder.com/100x100.png',
+            'image_url' => 'https://via.placeholder.com/200x200.png',
         ]);
 
         if ($this->getUserData($useremail)) {
