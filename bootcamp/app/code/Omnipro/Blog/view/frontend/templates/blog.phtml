@@ -11,7 +11,19 @@ $items = $viewModel->getOpinions();
 $items = array_reverse($items);
 ?>
 <script>
-    $items.reverse()
+    const title = document.getElementById("title");
+    const title = document.getElementById("content");
+    const title = document.getElementById("email");
+    const title = document.getElementById("image");
+    const error;
+
+    const procesarDatos = (e) =>{
+        e.preventDefault();
+        if(!title.trim()){
+            error = "Titulo vacío!!";
+            return;
+        }
+    }
 
 </script>
 
@@ -36,26 +48,26 @@ $items = array_reverse($items);
         </div>
         <form method="POST" action="<?= $block->getUrl('blog/createblog/createblog'); ?>">
         <div class="row mt-3">
-            <div class="col-7 col-sm-7 col-xs-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7">
-                <input class="form-control" type="text" name="title" placeholder="My post title" data-validate="{required:true, 'validate-email':true}"/>
+            <div class="col-10 col-sm-10 col-xs-10 col-md-10 col-lg-10 col-xl-7 col-xxl-7">
+                <input required="true" id="title" class="form-control" type="text" name="title" placeholder="My post title" data-validate="{required:true, 'validate-email':true}"/>
             </div>
-            <div class="col-5 col-sm-5 col-xs-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5">
+            <div class="col-2 col-sm-2 col-xs-2 col-md-2 col-lg-2 col-xl-5 col-xxl-5">
                 <button class="btn btn-primary" type="submit">Save post</button>
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col-7 col-sm-7 col-xs-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7">
-                <textarea class="form-control" type="text" name="content" placeholder="Here all my important post text" rows="3" data-validate="{required:true, 'validate-email':true}"></textarea>
+            <div class="col-10 col-sm-10 col-xs-10 col-md-10 col-lg-10 col-xl-7 col-xxl-7">
+                <textarea required="true" id="content" class="form-control" type="text" name="content" placeholder="Here all my important post text" rows="3" data-validate="{required:true, 'validate-email':true}"></textarea>
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col-4 col-sm-4 col-xs-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-            <input class="form-control" type="email" name="email" placeholder="Email Address" data-validate="{required:true, 'validate-email':true}"/>
+            <div class="col-8 col-sm-8 col-xs-7 col-md-7 col-lg-7 col-xl-4 col-xxl-4">
+            <input required="true" id="email" class="form-control" type="email" name="email" placeholder="Email Address" data-validate="{required:true, 'validate-email':true}"/>
         </div>
         </div>
         <div class="row mt-3 mb-3">
-            <div class="col-7 col-sm-7 col-xs-7 col-md-7 col-lg-7 col-xl-7 col-xxl-7">
-                <input class="form-control" type="file" name="image"/>
+            <div class="col-10 col-sm-10 col-xs-10 col-md-10 col-lg-10 col-xl-7 col-xxl-7">
+                <input required="true" id="image" class="form-control" type="file" name="image"/>
                 <input type="hidden" name="form_key" value="<?php echo $block->getFormKey() ?>" />
             </div>
         </div>
@@ -63,19 +75,19 @@ $items = array_reverse($items);
 
 <?php foreach ($items as $opinion): ?>
 <div class="container mt-3 rounded">
-    <div class="row mt-5 ">
-        <div class="bg-light col col-sm-7 col-xs-7 col-md-7 col-lg-7 col-xl-5 col-xxl-5 rounded mt-3" >
+    <div class="row mt-5 justify-content-start">
+        <div class="col-9 col-sm-9 col-xs-9 col-md-9 col-lg-9 col-xl-7 col-xxl-7 rounded mt-3" >
             <p class="justify"> <?= $opinion['title'] ?> </p>
         </div>
-        <div class="bg-light col col-sm-4 col-xs-4 col-md-4 col-lg-4 col-xl-3 col-xxl-3 rounded mt-3">
-            <p>Fecha</p>
+        <div class=" col-3 col-sm-3 col-xs-3 col-md-3 col-lg-3 col-xl-2 col-xxl-2 rounded mt-3">
+            <p class="text-right"><?= $opinion['fecha'] ?></p>
         </div>
     </div>
-    <div class="row">
-        <div class="bg-light col col-sm-2 col-xs-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 rounded mb-3">
+    <div class="row justify-content-start">
+        <div class="col-2 col-sm-2 col-xs-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 rounded mb-3">
             <img src="https://via.placeholder.com/100x100.png" class="img-fluid rounded" alt="image">  
         </div>
-        <div class="bg-light col col-sm-9 col-xs-9 col-md-9 col-lg-9 col-xl-6 col-xxl-6 rounded  mb-3">
+        <div class="col-9 col-sm-9 col-xs-9 col-md-9 col-lg-9 col-xl-6 col-xxl-6 rounded  mb-3">
             <p class="text-justify justify">  <?= $opinion['opinion'] ?> </p>
         </div>
     </div>

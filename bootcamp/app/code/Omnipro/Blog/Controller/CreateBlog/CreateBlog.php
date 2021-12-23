@@ -79,10 +79,10 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
             'opinion' => $opinion ,
             'user_email' => $useremail,
             'image_url' => '\d\f\dfj.jpg',
-            ]);
+        ]);
 
        
-            if ($this->getFormKey() == '1xEr7uTIJaNDtSHt'){
+        if ($this->getFormKey() == '1xEr7uTIJaNDtSHt') {
                 $this->blogRepository->save($blog);
             }
         #$blog->save();
