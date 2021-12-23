@@ -116,7 +116,7 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
                 $emailsAdmins[] = $role['email'];
             }
         }
-        foreach($emailsAdmins as $emails) {
+        foreach ($emailsAdmins as $emails) {
             if ($emails == $useremail) {
                 return true;
             }
@@ -129,6 +129,8 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
         $useremail = $this->request->getParam('email');
         $image = $this->request->getParam('image');
 
+        //if(isset($_FILES['image']['name']) && $_FILES['image']['name'] != ''){
+
         // $uploaderFactory = $this->uploaderFactory->create(['fileId' => $image]);
         // $uploaderFactory->setAllowedExtensions(['jpg', 'jpg', 'png']);
         // $imageAdapter = $this->adapterFactory->create();
@@ -137,19 +139,15 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
         // $uploaderFactory->setAllowRenameFiles(true);
         // $uploaderFactory->setFilesDispersion(true);
         // $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
-        // $destinationPath = $mediaDirectory->getAbsolutePath('custom_image');
+        // $destinationPath = $mediaDirectory->getAbsolutePath('omnipro/blog');
         // $result = $uploaderFactory->save($destinationPath);
-        // $imagepath = $result['file'];
-
-        
+        // $imagepath = 'omnipro/blog'.$result['file];
+        // $image = $imagePath
+        //}
 
         $json = $this->jsonFactory->create();
         $blog = $this->blogFactory->create();
 
-        // $blog->setUserEmail($useremail);
-        // $blog->setImageUrl("link");
-        // $blog->setTitle($title);
-        // $blog->setOpinion($opinion);
         $blog->setData([
             'title' => $title,
             'opinion' => $opinion ,
@@ -161,7 +159,6 @@ class CreateBlog extends \Magento\Framework\App\Action\Action
          if ($this->getFormKey() == '1xEr7uTIJaNDtSHt') {
                 $this->blogRepository->save($blog);
             }
-        #$blog->save();
         }
         return $this->_redirect('blog');
     }
